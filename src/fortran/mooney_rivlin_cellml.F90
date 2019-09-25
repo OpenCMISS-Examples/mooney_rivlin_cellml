@@ -136,7 +136,7 @@ PROGRAM MOONEYRIVLININCELLMLEXAMPLE
   !Generic CMISS variables
   INTEGER(CMISSIntg) :: Err
   
-  INTEGER :: argc,l
+  INTEGER :: argc,j
   CHARACTER(len=255) :: input_path,arg
 
 #ifdef WIN32
