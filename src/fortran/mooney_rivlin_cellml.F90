@@ -135,6 +135,9 @@ PROGRAM MOONEYRIVLININCELLMLEXAMPLE
 
   !Generic CMISS variables
   INTEGER(CMISSIntg) :: Err
+  
+  INTEGER :: argc,l
+  CHARACTER(len=255) :: input_path,arg
 
 #ifdef WIN32
   !Initialise QuickWin
@@ -170,6 +173,15 @@ PROGRAM MOONEYRIVLININCELLMLEXAMPLE
     NumberGlobalYElements=1
     NumberGlobalZElements=1
   ENDIF
+  
+!Get path to input data if given
+  input_path=""
+  call getenv("MOONEY_RIVLIN_INPUT_PATH",arg)
+  input_path=trim(arg)
+  j=len_trim(arg)
+  if( j/=0 .AND. input_path( j:j ) /= '/' ) then
+        input_path=trim(arg) // trim("/")
+  end if
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -412,7 +424,7 @@ PROGRAM MOONEYRIVLININCELLMLEXAMPLE
   CALL cmfe_CellML_Initialise(CellML,Err)
   CALL cmfe_CellML_CreateStart(CellMLUserNumber,Region,CellML,Err)
   !Import a Mooney-Rivlin material law from a file
-  CALL cmfe_CellML_ModelImport(CellML,"inputs/mooney_rivlin.xml",MooneyRivlinModelIndex,Err)
+  CALL cmfe_CellML_ModelImport(CellML,trim(input_path) // trim("inputs/mooney_rivlin.xml"),MooneyRivlinModelIndex,Err)
 !  CALL cmfe_CellML_ModelImport(CellML,"n98.xml",MooneyRivlinModelIndex,Err)
   ! Now we have imported the model we are able to specify which variables from the model we want:
   !   - to set from this side
