@@ -177,6 +177,7 @@ PROGRAM MOONEYRIVLININCELLMLEXAMPLE
 !Get path to input data if given
   input_path=""
   call getenv("MOONEY_RIVLIN_INPUT_PATH",arg)
+  print *,"Input path: ",arg
   input_path=trim(arg)
   j=len_trim(arg)
   if( j/=0 .AND. input_path( j:j ) /= '/' ) then
